@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###########################################
-# by Ricardo Canelas                      #
+# based on:                               #
 # https://gist.github.com/ricardocanelas  #
 #-----------------------------------------#
 # + Apache                                #
@@ -15,7 +15,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables & Functions
 # ---------------------------------------------------------------------------------------------------------------------
-APP_DATABASE_NAME='app'
+APP_DATABASE_NAME='example'
 
 echoTitle () {
     echo -e "\033[0;30m\033[42m -- $1 -- \033[0m"
@@ -27,8 +27,8 @@ echoTitle () {
 echoTitle 'Virtual Machine Setup'
 # ---------------------------------------------------------------------------------------------------------------------
 # Update packages
-apt-get update -qq
-apt-get -y install git curl vim
+apt-get update -qq >> /vagrant/vm_build.log 2>&1
+apt-get -y install git curl vim >> /vagrant/vm_build.log 2>&1
 
 
 
@@ -36,7 +36,7 @@ apt-get -y install git curl vim
 echoTitle 'Installing and Setting: Apache'
 # ---------------------------------------------------------------------------------------------------------------------
 # Install packages
-apt-get install -y apache2 libapache2-mod-fastcgi apache2-mpm-worker
+apt-get install -y apache2 libapache2-mod-fastcgi apache2-mpm-worker >> /vagrant/vm_build.log 2>&1
 
 # linking Vagrant directory to Apache 2.4 public directory
 # rm -rf /var/www
@@ -61,7 +61,7 @@ EOF
 echo "${VHOST}" > /etc/apache2/sites-enabled/000-default.conf
 
 # Loading needed modules to make apache work
-a2enmod actions fastcgi rewrite
+a2enmod actions fastcgi rewrite 
 sudo service apache2 restart
 
 
@@ -74,7 +74,7 @@ sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password pas
 sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password_again password password'
 
 # Installing packages
-apt-get install -y mysql-server-5.6 mysql-client-5.6 mysql-common-5.6
+apt-get install -y mysql-server-5.6 mysql-client-5.6 mysql-common-5.6 >> /vagrant/vm_build.log 2>&1
 
 # Setup database
 mysql -uroot -ppassword -e "CREATE DATABASE IF NOT EXISTS $APP_DATABASE_NAME;";
@@ -120,27 +120,27 @@ sudo service mysql restart
 echoTitle 'Installing: PHP'
 # ---------------------------------------------------------------------------------------------------------------------
 # Add repository
-add-apt-repository ppa:ondrej/php
-apt-get update
-apt-get install -y python-software-properties software-properties-common
+add-apt-repository ppa:ondrej/php >> /vagrant/vm_build.log 2>&1
+apt-get update >> /vagrant/vm_build.log 2>&1
+apt-get install -y python-software-properties software-properties-common >> /vagrant/vm_build.log 2>&1
 
 # Remove PHP5
 # apt-get purge php5-fpm -y
 # apt-get --purge autoremove -y
 
 # Install packages
-apt-get install -y php7.1 php7.1-fpm
-apt-get install -y php7.1-mysql
-apt-get install -y mcrypt php7.1-mcrypt
-apt-get install -y php7.1-cli php7.1-curl php7.1-mbstring php7.1-xml php7.1-mysql
-apt-get install -y php7.1-json php7.1-cgi php7.1-gd php-imagick php7.1-bz2 php7.1-zip
+apt-get install -y php7.1 php7.1-fpm >> /vagrant/vm_build.log 2>&1
+apt-get install -y php7.1-mysql >> /vagrant/vm_build.log 2>&1
+apt-get install -y mcrypt php7.1-mcrypt >> /vagrant/vm_build.log 2>&1
+apt-get install -y php7.1-cli php7.1-curl php7.1-mbstring php7.1-xml php7.1-mysql >> /vagrant/vm_build.log 2>&1
+apt-get install -y php7.1-json php7.1-cgi php7.1-gd php-imagick php7.1-bz2 php7.1-zip >> /vagrant/vm_build.log 2>&1
 
 
 
 # ---------------------------------------------------------------------------------------------------------------------
 echoTitle 'Setting: PHP with Apache'
 # ---------------------------------------------------------------------------------------------------------------------
-apt-get install -y libapache2-mod-php7.1
+apt-get install -y libapache2-mod-php7.1 >> /vagrant/vm_build.log 2>&1
 
 # Enable php modules
 # php71enmod mcrypt (error)
@@ -170,11 +170,11 @@ sudo service apache2 reload
 # ---------------------------------------------------------------------------------------------------------------------
 echoTitle 'Installing: Node 8 and update NPM'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -y nodejs
-npm install npm@latest -g
+apt-get install -y nodejs >> /vagrant/vm_build.log 2>&1
+npm install npm@latest -g >> /vagrant/vm_build.log 2>&1
 
 echoTitle 'Installing: Git'
-apt-get install -y git
+apt-get install -y git >> /vagrant/vm_build.log 2>&1
 
 echoTitle 'Installing: Composer'
 curl -s https://getcomposer.org/installer | php
