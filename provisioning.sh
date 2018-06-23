@@ -49,8 +49,8 @@ echo "ServerName localhost" > /etc/apache2/httpd.conf
 VHOST=$(cat <<EOF
     <VirtualHost *:80>
       DocumentRoot "/var/www/app/public"
-      ServerName app.dev
-      ServerAlias app.dev
+      ServerName example.local
+      ServerAlias www.example.local
       <Directory "/var/www/app/public">
         AllowOverride All
         Require all granted
@@ -168,8 +168,8 @@ sudo service apache2 reload
 # ---------------------------------------------------------------------------------------------------------------------
 # Others
 # ---------------------------------------------------------------------------------------------------------------------
-echoTitle 'Installing: Node 6 and update NPM'
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+echoTitle 'Installing: Node 8 and update NPM'
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt-get install -y nodejs
 npm install npm@latest -g
 
