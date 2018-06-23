@@ -1,5 +1,5 @@
 .vagrant/
-.DS_Store/
+**/.DS_Store
 Vagrantfile
 www/html/
 vm_build.log
