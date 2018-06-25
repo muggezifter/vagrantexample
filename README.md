@@ -13,12 +13,24 @@ cp Vagrantfile.dist Vagrantfile
 vagrant up
 ```
 
-nadat de installate voltooid is is de website beschikbaar op 192.168.33.10
+Nadat de installate voltooid is is de website beschikbaar op 192.168.33.10
 
-Je kunt in de virtual boxwerken via ssh:
+Je kunt hem toevoegen in je hosts file zodat hij beschikbaar is als http://example.local:
+```
+192.168.33.10 example.local
+```
+
+Je kunt in de virtual box werken via ssh:
 
 ```
 vagrant ssh
 ```
-Als je klaar bent met werken kun je de box stoppen met vagrant suspend.De volgende keer dat je vagrant up doet gat hij dan verder waar je gebleven was.
+Als je klaar bent met werken kun je de box stoppen met vagrant suspend. De volgende keer dat je vagrant up doet gat hij dan verder waar je gebleven was.
+
+Alle vagrant commands: 
+
+```
+vagrant -h
+```
+
 
