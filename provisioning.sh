@@ -76,36 +76,26 @@ echoTitle "Install and configure NGINX"
 # ---------------------------------------------------------------------------------------------------------------------
 
 apt-get install -y nginx >> /vagrant/vm_build.log 2>&1
-sudo rm /etc/nginx/sites-enabled/default
 
 # Setup nginx conf file
 CONF=$(cat <<EOF
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server ipv6only=on;
+ server {
+        listen 80;
+        server_name example.local;
 
-	root /var/www/static;
-	index index.html index.htm;
+        root /var/www/static;
+        index index.html;
 
-	# Make site accessible from http://localhost/
-	server_name localhost;
-
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
-		# Uncomment to enable naxsi on this location
-		# include /etc/nginx/naxsi.rules
-	}
-
-	location /api {
-		proxy_pass http://127.0.0.1:8080;
-	}
-
-}
+        location / {
+                try_files $uri $uri/ =404;
+        }
+        location /api {
+                proxy_pass http://127.0.0.1:8080;
+        }
+ }
 EOF
 )
-echo "${CONF}" >  /etc/nginx/sites-enabled/default
+echo "${CONF}" >  /etc/nginx/sites-enabled/example.local
 sudo service nginx restart
 
 # ---------------------------------------------------------------------------------------------------------------------
