@@ -42,6 +42,9 @@ apt-get install -y apache2 libapache2-mod-fastcgi apache2-mpm-worker >> /vagrant
 # rm -rf /var/www
 # ln -fs /vagrant /var/www
 
+# remove default webroot
+rm -rf /var/www/html
+
 # Add ServerName to httpd.conf
 echo "ServerName localhost" > /etc/apache2/httpd.conf
 
