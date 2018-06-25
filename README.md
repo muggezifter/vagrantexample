@@ -27,7 +27,7 @@ vagrant ssh
 ```
 Als je klaar bent met werken kun je de box stoppen met vagrant suspend. De volgende keer dat je vagrant up doet gat hij dan verder waar je gebleven was.
 
-Alle vagrant commands: 
+Zie alle vagrant commands hier: 
 
 ```
 vagrant -h
