@@ -183,7 +183,10 @@ echoTitle 'Installing: Composer'
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-
+echoTitle 'Installing the app'
+cd /var/www/app
+cp .env.example .env
+composer install
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Others
