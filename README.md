@@ -28,4 +28,14 @@ Als je klaar bent met werken kun je de box stoppen met `vagrant suspend`. De vol
 
 Zie alle vagrant commands:`vagrant -h`
 
+Om de database aan te maken/vullen voer je binnen de vagrant box de volgende commandos uit:
+
+`cd /var/www/app`
+
+`php artisan migrate:install`
+
+`php artisan migrate`
+
+`php artisan db:seed`
+
 
