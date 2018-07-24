@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,4 +14,13 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->get('users', function () use ($router) {
+    return User::all(['id','name','email'])->toJson();;
+});
+
+
+$router->get('users/{id}', function ($id) use ($router) {
+    return User::find($id)->toJson();
 });
